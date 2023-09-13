@@ -6,7 +6,7 @@ export class User {
     id: string;
     @Column({length: 30})
     nick: string;
-    @Column({length: 120})
+    @Column({length: 120, unique: true})
     email: string;
     @Column()
     password: string;

@@ -22,7 +22,7 @@ export class UsersService {
     }
 
 
-    async addUser(user: AddUserDto): Promise<UserResponse> {
+    async addUser(user: AddUserDto): Promise<UserResponse>{
         await this.UserRepository.save(user)
         return {isSuccess: true, code: 201}
     }
