@@ -21,7 +21,7 @@ export class UsersController {
         return await this.userService.getOneUser(id)
     }
 
-    @Post('/')
+    @Post('/add')
     async addUser(
         @Body() user: AddUserDto
     ): Promise<UserResponse> {
