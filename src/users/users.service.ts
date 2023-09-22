@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { User } from './users.entity';
+import { User, UserConfirmCode } from './users.entity';
 import { UserResponse } from '../types/users';
 import { AddUserDto } from './dto/AddUser.dto';
 import { generateCode } from '../utils/generate-code';
@@ -10,6 +10,8 @@ import { generateCode } from '../utils/generate-code';
 export class UsersService {
   constructor(
     @InjectRepository(User) private UserRepository: Repository<User>,
+    @InjectRepository(UserConfirmCode)
+    private UserConfirmRepository: Repository<UserConfirmCode>,
   ) {}
 
   async getUsers(): Promise<User[]> {
@@ -28,7 +30,11 @@ export class UsersService {
     }
     await this.UserRepository.save(user);
     const code = generateCode();
-    console.log(code);
+    const confirm = {
+      userID: user.id,
+      code,
+    };
+    await this.UserConfirmRepository.save(confirm);
     return { isSuccess: true, code: 201 };
   }
 
@@ -51,8 +57,4 @@ export class UsersService {
       isSuccess: true,
     };
   }
-
-  // private async checkEmail(email: string) {
-  //     return await this.UserRepository.findOne({where: email})
-  // }
 }
