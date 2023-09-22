@@ -23,6 +23,11 @@ export class UsersService {
 
 
     async addUser(user: AddUserDto): Promise<UserResponse>{
+        const email = user.email
+        const userEmail = await this.UserRepository.findOneBy({email})
+        if(userEmail?.email === user.email) {
+            return {isSuccess: false, code: 502}
+        }
         await this.UserRepository.save(user)
         return {isSuccess: true, code: 201}
     }
@@ -43,4 +48,8 @@ export class UsersService {
             isSuccess: true
         }
     }
+
+    // private async checkEmail(email: string) {
+    //     return await this.UserRepository.findOne({where: email})
+    // }
 }
