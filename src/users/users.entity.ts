@@ -13,3 +13,13 @@ export class User {
     @Column({default: false})
     isActive: boolean;
 }
+
+@Entity('users-confirm-code')
+export class UserConfirmCode {
+    @PrimaryGeneratedColumn('uuid')
+    id: string;
+    @Column({length: 36})
+    userID: string;
+    @Column({length: 36})
+    code: string;
+}
