@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User, UserConfirmCode } from './users.entity';
-import { UserResponse } from '../types/users';
+import { GenerateCodeResponse, UserResponse } from '../types/users';
 import { AddUserDto } from './dto/AddUser.dto';
 import { generateCode } from '../utils/generate-code';
 
@@ -29,12 +29,7 @@ export class UsersService {
       return { isSuccess: false, code: 502 };
     }
     await this.UserRepository.save(user);
-    const code = generateCode();
-    const confirm = {
-      userID: user.id,
-      code,
-    };
-    await this.UserConfirmRepository.save(confirm);
+    await this.generateCode(user);
     return { isSuccess: true, code: 201 };
   }
 
@@ -56,5 +51,15 @@ export class UsersService {
     return {
       isSuccess: true,
     };
+  }
+
+  private async generateCode(user: AddUserDto): Promise<void> {
+    const code = generateCode();
+    const genCode = {
+      userID: user.id,
+      code,
+    };
+
+    await this.UserConfirmRepository.save(genCode);
   }
 }
