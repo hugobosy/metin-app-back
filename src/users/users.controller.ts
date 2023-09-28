@@ -46,6 +46,11 @@ export class UsersController {
     return await this.userService.updatePasswordUser(id, password);
   }
 
+  @Post('/activate/:code')
+  async activateUser(@Param('code') code: string): Promise<UserResponse> {
+    return await this.userService.activateUser(code);
+  }
+
   @Delete('/:id')
   async removeUser(@Param('id') id: string): Promise<UserResponse> {
     return await this.userService.removeUser(id);

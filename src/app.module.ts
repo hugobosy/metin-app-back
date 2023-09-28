@@ -4,12 +4,12 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { EmailConfirmationModule } from './email-confirmation/email-confirmation.module';
+import { EmailModule } from './email/email.module';
 
 @Module({
   imports: [
     UsersModule,
-    EmailConfirmationModule,
+    EmailModule,
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'mysql',

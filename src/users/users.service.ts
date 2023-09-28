@@ -53,6 +53,18 @@ export class UsersService {
     };
   }
 
+  async activateUser(code: string): Promise<UserResponse> {
+    const isCode = await this.UserConfirmRepository.findOneBy({ code });
+    console.log(isCode);
+    if (isCode?.code !== code) {
+      return { isSuccess: false, code: 502, message: 'Invalid activate code' };
+    }
+    await this.UserRepository.update(isCode.userID, { isActive: true });
+    await this.UserConfirmRepository.delete(isCode.id);
+
+    return { isSuccess: true, code: 201, message: 'User was activated' };
+  }
+
   private async generateCode(user: AddUserDto): Promise<void> {
     const code = generateCode();
     const genCode = {

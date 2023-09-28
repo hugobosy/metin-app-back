@@ -10,10 +10,12 @@ export type UserResponse =
   | {
       isSuccess: true;
       code?: 201;
+      message?: string;
     }
   | {
       isSuccess: false;
       code?: 502;
+      message?: string;
     };
 
 export interface GenerateCodeResponse {
