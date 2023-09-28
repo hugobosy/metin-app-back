@@ -1,10 +1,14 @@
-import { Injectable } from '@nestjs/common';
+import * as process from 'process';
+
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+import { Injectable, Query } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User, UserConfirmCode } from './users.entity';
 import { GenerateCodeResponse, UserResponse } from '../types/users';
 import { AddUserDto } from './dto/AddUser.dto';
 import { generateCode } from '../utils/generate-code';
+import { MailerService } from '@nestjs-modules/mailer';
 
 @Injectable()
 export class UsersService {
@@ -12,6 +16,7 @@ export class UsersService {
     @InjectRepository(User) private UserRepository: Repository<User>,
     @InjectRepository(UserConfirmCode)
     private UserConfirmRepository: Repository<UserConfirmCode>,
+    private mailService: MailerService,
   ) {}
 
   async getUsers(): Promise<User[]> {
@@ -29,7 +34,8 @@ export class UsersService {
       return { isSuccess: false, code: 502 };
     }
     await this.UserRepository.save(user);
-    await this.generateCode(user);
+    const genCode = await this.generateCode(user);
+    await this.sendEmail(email, genCode.code);
     return { isSuccess: true, code: 201 };
   }
 
@@ -55,7 +61,6 @@ export class UsersService {
 
   async activateUser(code: string): Promise<UserResponse> {
     const isCode = await this.UserConfirmRepository.findOneBy({ code });
-    console.log(isCode);
     if (isCode?.code !== code) {
       return { isSuccess: false, code: 502, message: 'Invalid activate code' };
     }
@@ -65,7 +70,7 @@ export class UsersService {
     return { isSuccess: true, code: 201, message: 'User was activated' };
   }
 
-  private async generateCode(user: AddUserDto): Promise<void> {
+  private async generateCode(user: AddUserDto): Promise<GenerateCodeResponse> {
     const code = generateCode();
     const genCode = {
       userID: user.id,
@@ -73,5 +78,21 @@ export class UsersService {
     };
 
     await this.UserConfirmRepository.save(genCode);
+
+    return genCode;
+  }
+
+  private async sendEmail(
+    @Query('toEmail') toEmail: string,
+    code: string,
+  ): Promise<UserResponse> {
+    await this.mailService.sendMail({
+      to: toEmail,
+      from: process.env.NODEMAILER_USER,
+      subject: 'Weryfikacja konta w serwisie ksiegi-metina.pl',
+      text: code,
+    });
+
+    return { isSuccess: true };
   }
 }

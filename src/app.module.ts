@@ -5,9 +5,19 @@ import { UsersModule } from './users/users.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { EmailModule } from './email/email.module';
+import { MailerModule } from '@nestjs-modules/mailer';
 
 @Module({
   imports: [
+    MailerModule.forRoot({
+      transport: {
+        host: 'smtp.sendgrid.net',
+        auth: {
+          user: 'apikey',
+          pass: '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',
+        },
+      },
+    }),
     UsersModule,
     EmailModule,
     ConfigModule.forRoot(),
