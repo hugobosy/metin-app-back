@@ -1,7 +1,5 @@
-import * as process from 'process';
-
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-import { Injectable, Query } from '@nestjs/common';
+import { Body, Injectable, Query } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User, UserConfirmCode } from './users.entity';
@@ -90,7 +88,10 @@ export class UsersService {
       to: toEmail,
       from: process.env.NODEMAILER_USER,
       subject: 'Weryfikacja konta w serwisie ksiegi-metina.pl',
-      text: code,
+      template: 'verification-email',
+      context: {
+        link: process.env.VERIFICATION_URL + `/${code}`,
+      },
     });
 
     return { isSuccess: true };
