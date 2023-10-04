@@ -3,10 +3,16 @@ import { Body, Injectable, Query } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User, UserConfirmCode } from './users.entity';
-import { GenerateCodeResponse, UserResponse } from '../types/users';
+import {
+  GenerateCodeResponse,
+  GetUsersResponse,
+  UserResponse,
+} from '../types/users';
 import { AddUserDto } from './dto/AddUser.dto';
 import { generateCode } from '../utils/generate-code';
 import { MailerService } from '@nestjs-modules/mailer';
+
+export type UserT = any;
 
 @Injectable()
 export class UsersService {
@@ -23,6 +29,10 @@ export class UsersService {
 
   async getOneUser(id: string): Promise<User> {
     return await this.UserRepository.findOneByOrFail({ id });
+  }
+
+  async findOne(email: string): Promise<UserT | undefined> {
+    return await this.UserRepository.findOneBy({ email });
   }
 
   async addUser(user: AddUserDto): Promise<UserResponse> {

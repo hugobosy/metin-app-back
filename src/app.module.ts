@@ -9,6 +9,7 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import 'dotenv/config';
 import { join } from 'path';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -36,10 +37,11 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: true,
+      migrations: ['dist/migration/*.js'],
       bigNumberStrings: false,
       logging: true,
     }),
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

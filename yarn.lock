@@ -1084,6 +1084,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nestjs/mapped-types@npm:*":
+  version: 2.0.2
+  resolution: "@nestjs/mapped-types@npm:2.0.2"
+  peerDependencies:
+    "@nestjs/common": ^8.0.0 || ^9.0.0 || ^10.0.0
+    class-transformer: ^0.4.0 || ^0.5.0
+    class-validator: ^0.13.0 || ^0.14.0
+    reflect-metadata: ^0.1.12
+  peerDependenciesMeta:
+    class-transformer:
+      optional: true
+    class-validator:
+      optional: true
+  checksum: 1fb0dca3838d0dc23107233e95a711e251bfbef9017589d3764c955a1cf190c8372179cee70e3674807896f53a98ab2ba80cd769b4f072fadefb708be1cc911b
+  languageName: node
+  linkType: hard
+
 "@nestjs/platform-express@npm:^10.0.0":
   version: 10.2.5
   resolution: "@nestjs/platform-express@npm:10.2.5"
@@ -1223,6 +1240,34 @@ __metadata:
     picocolors: ^1.0.0
     tslib: ^2.6.0
   checksum: 24e04c121269317d259614cd32beea3af38277151c4002df5883c4be920b8e3490bb897748e844f9d46bf68230f86dabd4e8f093773130e7e60529a769a132fc
+  languageName: node
+  linkType: hard
+
+"@prisma/client@npm:^5.3.1":
+  version: 5.3.1
+  resolution: "@prisma/client@npm:5.3.1"
+  dependencies:
+    "@prisma/engines-version": 5.3.1-2.61e140623197a131c2a6189271ffee05a7aa9a59
+  peerDependencies:
+    prisma: "*"
+  peerDependenciesMeta:
+    prisma:
+      optional: true
+  checksum: 8017b721a231ab7b2b0f932507b02bf075aae2c6f6e630a69d7089ff33bab44fa50b50dd8a81655b7202092ffc19717d484ae5f183fc4f2a1822b0d228991a7c
+  languageName: node
+  linkType: hard
+
+"@prisma/engines-version@npm:5.3.1-2.61e140623197a131c2a6189271ffee05a7aa9a59":
+  version: 5.3.1-2.61e140623197a131c2a6189271ffee05a7aa9a59
+  resolution: "@prisma/engines-version@npm:5.3.1-2.61e140623197a131c2a6189271ffee05a7aa9a59"
+  checksum: c1adf540c9330a54a000c3005a4621c5d8355f2e3b159121587d33f82bf5992f567ac453f0ce76dd48fac427ec4dbc55942228fcee10d522b0d2c03bddbe422a
+  languageName: node
+  linkType: hard
+
+"@prisma/engines@npm:5.3.1":
+  version: 5.3.1
+  resolution: "@prisma/engines@npm:5.3.1"
+  checksum: a231adad60ac42569b560ea9782bc181818d8ad15e65283d1317bda5d7aa754e5b536a3f9365ce1eda8961e1eff4eca5978c456fa9764a867fe4339d123e7371
   languageName: node
   linkType: hard
 
@@ -6382,10 +6427,12 @@ __metadata:
     "@nestjs/common": ^10.0.0
     "@nestjs/config": ^3.1.0
     "@nestjs/core": ^10.0.0
+    "@nestjs/mapped-types": "*"
     "@nestjs/platform-express": ^10.0.0
     "@nestjs/schematics": ^10.0.0
     "@nestjs/testing": ^10.0.0
     "@nestjs/typeorm": ^10.0.0
+    "@prisma/client": ^5.3.1
     "@types/express": ^4.17.17
     "@types/jest": ^29.5.2
     "@types/node": ^20.3.1
@@ -6401,6 +6448,7 @@ __metadata:
     mysql: ^2.18.1
     nodemailer: ^6.9.5
     prettier: ^3.0.0
+    prisma: ^5.3.1
     reflect-metadata: ^0.1.13
     rxjs: ^7.8.1
     source-map-support: ^0.5.21
@@ -7830,6 +7878,17 @@ __metadata:
     pug: ^3.0.2
     uuid: ^9.0.0
   checksum: e11bcb5cc41bdf3f2d5baf921c2c5e78ec59ce0ada3d4758c9557b032fcd57e54e68ed46c98d5809812d33bfe1db40a4a35c0ab63d6d5fbdd5862081d5fd18bc
+  languageName: node
+  linkType: hard
+
+"prisma@npm:^5.3.1":
+  version: 5.3.1
+  resolution: "prisma@npm:5.3.1"
+  dependencies:
+    "@prisma/engines": 5.3.1
+  bin:
+    prisma: build/index.js
+  checksum: e825adbcb4eec81de276de5507fb7e5486db7788c8c9de36ba6ed73f9e87d9f56b64d0e183a31dc6b80f6737ae1fbcdb110aac44ab89299af646aeb966655bef
   languageName: node
   linkType: hard
 
