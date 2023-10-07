@@ -12,8 +12,6 @@ import { AddUserDto } from './dto/AddUser.dto';
 import { generateCode } from '../utils/generate-code';
 import { MailerService } from '@nestjs-modules/mailer';
 
-export type UserT = any;
-
 @Injectable()
 export class UsersService {
   constructor(
@@ -31,7 +29,7 @@ export class UsersService {
     return await this.UserRepository.findOneByOrFail({ id });
   }
 
-  async findOne(email: string): Promise<UserT | undefined> {
+  async findOne(email: string): Promise<User | undefined> {
     return await this.UserRepository.findOneBy({ email });
   }
 

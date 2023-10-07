@@ -40,6 +40,7 @@ import { AuthModule } from './auth/auth.module';
       migrations: ['dist/migration/*.js'],
       bigNumberStrings: false,
       logging: true,
+      synchronize: true,
     }),
     AuthModule,
   ],
