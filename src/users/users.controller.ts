@@ -6,22 +6,14 @@ import {
   Inject,
   Param,
   Post,
-  Request,
-  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { GetUsersResponse, UserResponse } from '../types/users';
 import { AddUserDto } from './dto/AddUser.dto';
-import { LocalAuthGuard } from '../auth/local-auth.guard';
-import { AuthService } from '../auth/auth.service';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('users')
 export class UsersController {
-  constructor(
-    @Inject(UsersService) private userService: UsersService,
-    private authService: AuthService,
-  ) {}
+  constructor(@Inject(UsersService) private userService: UsersService) {}
 
   @Get('/')
   async getUsers(): Promise<GetUsersResponse[]> {
@@ -62,17 +54,5 @@ export class UsersController {
   @Delete('/:id')
   async removeUser(@Param('id') id: string): Promise<UserResponse> {
     return await this.userService.removeUser(id);
-  }
-
-  @UseGuards(LocalAuthGuard)
-  @Post('auth/login')
-  async login(@Request() req) {
-    return this.authService.login(req.user);
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Get('profile')
-  getProfile(@Request() req) {
-    return req.user;
   }
 }
