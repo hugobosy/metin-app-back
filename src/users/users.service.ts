@@ -35,13 +35,15 @@ export class UsersService {
 
   async addUser(user: AddUserDto): Promise<UserResponse> {
     const email = user.email;
+    const locale = user.locale;
     const userEmail = await this.UserRepository.findOneBy({ email });
     if (userEmail?.email === user.email) {
       return { isSuccess: false, code: 502 };
     }
     await this.UserRepository.save(user);
     const genCode = await this.generateCode(user);
-    await this.sendEmail(email, genCode.code);
+    await this.sendEmail(email, genCode.code, locale);
+    console.log(locale);
     return { isSuccess: true, code: 201 };
   }
 
@@ -67,7 +69,8 @@ export class UsersService {
 
   async activateUser(code: string): Promise<UserResponse> {
     const isCode = await this.UserConfirmRepository.findOneBy({ code });
-    if (isCode?.code !== code) {
+    console.log(isCode);
+    if (isCode === null && isCode?.code !== code) {
       return { isSuccess: false, code: 502, message: 'Invalid activate code' };
     }
     await this.UserRepository.update(isCode.userID, { isActive: true });
@@ -91,6 +94,7 @@ export class UsersService {
   private async sendEmail(
     @Query('toEmail') toEmail: string,
     code: string,
+    locale: string,
   ): Promise<UserResponse> {
     await this.mailService.sendMail({
       to: toEmail,
@@ -98,7 +102,7 @@ export class UsersService {
       subject: 'Weryfikacja konta w serwisie ksiegi-metina.pl',
       template: 'verification-email',
       context: {
-        link: process.env.VERIFICATION_URL + `/${code}`,
+        link: process.env.PROJECT_URL + `${locale}/${code}`,
       },
     });
 
