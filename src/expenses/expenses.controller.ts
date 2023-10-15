@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
+import { Body, Controller, Get, Inject, Param, Post } from '@nestjs/common';
 import { ExpensesService } from './expenses.service';
 import { ExpenseResponse, GetExpensesResponse } from '../types/expenses';
 import { AddExpenseDto } from './dto/AddExpenseDto';
@@ -10,8 +10,10 @@ export class ExpensesController {
   ) {}
 
   @Get('/')
-  async getExpenses(id: string): Promise<GetExpensesResponse[]> {
-    return await this.expensesService.getExpenses(id);
+  async getExpenses(
+    @Body('idUser') idUser: string,
+  ): Promise<GetExpensesResponse[]> {
+    return await this.expensesService.getExpenses(idUser);
   }
 
   @Post('add')
