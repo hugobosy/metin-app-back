@@ -9,7 +9,7 @@ export class ExpensesController {
     @Inject(ExpensesService) private expensesService: ExpensesService,
   ) {}
 
-  @Get('/')
+  @Post('/')
   async getExpenses(
     @Body('idUser') idUser: string,
   ): Promise<GetExpensesResponse[]> {

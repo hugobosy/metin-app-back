@@ -12,10 +12,7 @@ export class ExpensesService {
     private ExpensesRepository: Repository<Expenses>,
   ) {}
   async getExpenses(idUser: string) {
-    console.log(idUser);
-    const result = await this.ExpensesRepository.findBy({ idUser });
-    console.log(result);
-    return result;
+    return await this.ExpensesRepository.findBy({ idUser });
   }
 
   async addExpense(expense: AddExpenseDto): Promise<ExpenseResponse> {

@@ -11,6 +11,7 @@ import { join } from 'path';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { AuthModule } from './auth/auth.module';
 import { ExpensesModule } from './expenses/expenses.module';
+import { RevenuesModule } from './revenues/revenues.module';
 
 @Module({
   imports: [
@@ -45,6 +46,7 @@ import { ExpensesModule } from './expenses/expenses.module';
     }),
     AuthModule,
     ExpensesModule,
+    RevenuesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
