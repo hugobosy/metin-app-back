@@ -69,7 +69,6 @@ export class UsersService {
 
   async activateUser(code: string): Promise<UserResponse> {
     const isCode = await this.UserConfirmRepository.findOneBy({ code });
-    console.log(isCode);
     if (isCode === null && isCode?.code !== code) {
       return { isSuccess: false, code: 502, message: 'Invalid activate code' };
     }
@@ -102,7 +101,7 @@ export class UsersService {
       subject: 'Weryfikacja konta w serwisie ksiegi-metina.pl',
       template: 'verification-email',
       context: {
-        link: process.env.PROJECT_URL + `${locale}/${code}`,
+        link: process.env.PROJECT_URL + `${locale}/activate/${code}`,
       },
     });
 

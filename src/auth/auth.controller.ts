@@ -17,8 +17,14 @@ export class AuthController {
   constructor(private authService: AuthService) {}
   @HttpCode(HttpStatus.OK)
   @Post('login')
-  signIn(@Body() signInDto: Pick<GetUsersResponse, 'email' | 'password'>) {
-    return this.authService.signIn(signInDto.email, signInDto.password);
+  signIn(
+    @Body() signInDto: Pick<GetUsersResponse, 'id' | 'email' | 'password'>,
+  ) {
+    return this.authService.signIn(
+      signInDto.id,
+      signInDto.email,
+      signInDto.password,
+    );
   }
 
   @UseGuards(AuthGuard)
