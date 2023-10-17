@@ -12,6 +12,7 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
 import { AuthModule } from './auth/auth.module';
 import { ExpensesModule } from './expenses/expenses.module';
 import { RevenuesModule } from './revenues/revenues.module';
+import { ObjectiveModule } from './objective/objective.module';
 
 @Module({
   imports: [
@@ -47,6 +48,7 @@ import { RevenuesModule } from './revenues/revenues.module';
     AuthModule,
     ExpensesModule,
     RevenuesModule,
+    ObjectiveModule,
   ],
   controllers: [AppController],
   providers: [AppService],

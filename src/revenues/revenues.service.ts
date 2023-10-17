@@ -12,6 +12,7 @@ export class RevenuesService {
     private RevenuesRepository: Repository<Revenues>,
   ) {}
   async getRevenues(idUser: string) {
+    console.log(idUser);
     return await this.RevenuesRepository.findBy({ idUser });
   }
 
