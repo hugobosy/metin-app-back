@@ -9,8 +9,8 @@ export class ObjectiveController {
   ) {}
 
   @Post('/')
-  async getObjective(@Body('token') token: string) {
-    return await this.objectiveService.getObjective(token);
+  async getObjective(@Body('idUser') idUser: string) {
+    return await this.objectiveService.getObjective(idUser);
   }
 
   @Post('/add')
