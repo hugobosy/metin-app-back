@@ -15,6 +15,7 @@ export class ObjectiveController {
 
   @Post('/add')
   async addObjective(@Body() objective: ObjectiveDto) {
+    console.log(objective)
     return await this.objectiveService.addObjective(objective);
   }
 }

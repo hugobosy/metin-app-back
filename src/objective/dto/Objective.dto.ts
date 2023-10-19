@@ -1,6 +1,6 @@
 export class ObjectiveDto {
   id: string;
-  userId: string;
+  idUser: string;
   objective: string;
   amount: number;
 }
