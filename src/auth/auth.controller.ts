@@ -11,17 +11,19 @@ import {
 import { AuthService } from './auth.service';
 import { GetUsersResponse } from '../types/users';
 import { AuthGuard } from './auth.guard';
+import { Public } from './decorators/public.decorator';
 
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
+
   @HttpCode(HttpStatus.OK)
   @Post('login')
   signIn(
-    @Body() signInDto: Pick<GetUsersResponse, 'id' | 'email' | 'password'>,
+    @Body() signInDto: Pick<GetUsersResponse, 'email' | 'password'>,
   ) {
+    console.log(signInDto)
     return this.authService.signIn(
-      signInDto.id,
       signInDto.email,
       signInDto.password,
     );

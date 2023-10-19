@@ -13,6 +13,8 @@ import { AuthModule } from './auth/auth.module';
 import { ExpensesModule } from './expenses/expenses.module';
 import { RevenuesModule } from './revenues/revenues.module';
 import { ObjectiveModule } from './objective/objective.module';
+import { APP_GUARD } from '@nestjs/core';
+import { AuthGuard } from './auth/auth.guard';
 
 @Module({
   imports: [
