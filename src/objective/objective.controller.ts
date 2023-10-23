@@ -1,4 +1,4 @@
-import { Body, Controller, Inject, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Inject, Param, Patch, Post } from '@nestjs/common';
 import { ObjectiveService } from './objective.service';
 import { ObjectiveDto } from './dto/Objective.dto';
 
@@ -15,7 +15,21 @@ export class ObjectiveController {
 
   @Post('/add')
   async addObjective(@Body() objective: ObjectiveDto) {
-    console.log(objective)
     return await this.objectiveService.addObjective(objective);
+  }
+
+  @Patch('/complete/:id')
+  async setCompleteObjective(@Param() id: string) {
+    return await this.objectiveService.setCompleteObjective(id)
+  }
+
+  @Patch('/edit/:id')
+  async editObjective(@Param() id: string, @Body() objective: ObjectiveDto) {
+    return await this.objectiveService.editObjective(id, objective)
+  }
+
+  @Delete('/delete/:id')
+  async deleteObjective(@Param() id: string) {
+    return await this.objectiveService.deleteObjective(id)
   }
 }

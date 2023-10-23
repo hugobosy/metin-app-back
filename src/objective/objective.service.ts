@@ -16,6 +16,7 @@ export class ObjectiveService {
   async getObjective(idUser: string) {
     return this.objectiveRepository.findBy({ idUser });
   }
+  
   async addObjective(objective: ObjectiveDto): Promise<ObjectiveResponse> {
     await this.objectiveRepository.save(objective);
 
@@ -24,5 +25,35 @@ export class ObjectiveService {
       code: 201,
       message: 'Objective is added to database',
     };
+  }
+
+  async setCompleteObjective(id: string): Promise<ObjectiveResponse> {
+    await this.objectiveRepository.update(id, {isComplete: true})
+
+    return {
+      isSuccess: true,
+      code: 201,
+      message: 'Objective is updated'
+    }
+  }
+
+  async editObjective(id: string, objective: ObjectiveDto): Promise<ObjectiveResponse> {
+    await this.objectiveRepository.update(id, objective)
+
+    return {
+      isSuccess: true,
+      code: 201,
+      message: 'Objective is updated'
+    }
+  }
+
+  async deleteObjective(id:string) {
+    await this.objectiveRepository.delete(id)
+
+    return {
+      isSuccess: true,
+      code: 201,
+      message: 'Objective is deleted'
+    }
   }
 }

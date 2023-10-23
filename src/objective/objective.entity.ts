@@ -10,4 +10,6 @@ export class Objective {
   objective: string;
   @Column()
   amount: number;
+  @Column({default: 0})
+  isComplete: boolean;
 }
