@@ -3,4 +3,5 @@ export class ObjectiveDto {
   idUser: string;
   objective: string;
   amount: number;
+  values: ObjectiveDto;
 }

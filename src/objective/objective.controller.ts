@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Inject, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Inject, Param, Patch, Post, Put } from '@nestjs/common';
 import { ObjectiveService } from './objective.service';
 import { ObjectiveDto } from './dto/Objective.dto';
 
@@ -24,17 +24,18 @@ export class ObjectiveController {
   }
 
   @Patch('/complete/:id')
-  async setCompleteObjective(@Param() id: string) {
+  async setCompleteObjective(@Param('id') id: string) {
     return await this.objectiveService.setCompleteObjective(id)
   }
 
-  @Patch('/edit/:id')
-  async editObjective(@Param() id: string, @Body() objective: ObjectiveDto) {
-    return await this.objectiveService.editObjective(id, objective)
+  @Put('/edit')
+  async editObjective(@Body() objective: ObjectiveDto) {
+    console.log(objective.id)
+    return await this.objectiveService.editObjective(objective.id, objective)
   }
 
   @Delete('/delete/:id')
-  async deleteObjective(@Param() id: string) {
+  async deleteObjective(@Param('id') id: string) {
     return await this.objectiveService.deleteObjective(id)
   }
 }

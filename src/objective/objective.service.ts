@@ -43,7 +43,8 @@ export class ObjectiveService {
   }
 
   async editObjective(id: string, objective: ObjectiveDto): Promise<ObjectiveResponse> {
-    await this.objectiveRepository.update(id, objective)
+    console.log(id, objective)
+    await this.objectiveRepository.update(objective.id, objective.values)
 
     return {
       isSuccess: true,
