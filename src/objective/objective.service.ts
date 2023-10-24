@@ -16,6 +16,11 @@ export class ObjectiveService {
   async getObjective(idUser: string) {
     return this.objectiveRepository.findBy({ idUser });
   }
+
+  async getOneObjective(id: string) {
+    console.log(id)
+    return this.objectiveRepository.findOneBy({ id })
+  }
   
   async addObjective(objective: ObjectiveDto): Promise<ObjectiveResponse> {
     await this.objectiveRepository.save(objective);

@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Inject, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Inject, Param, Patch, Post } from '@nestjs/common';
 import { ObjectiveService } from './objective.service';
 import { ObjectiveDto } from './dto/Objective.dto';
 
@@ -11,6 +11,11 @@ export class ObjectiveController {
   @Post('/')
   async getObjective(@Body('idUser') idUser: string) {
     return await this.objectiveService.getObjective(idUser);
+  }
+
+  @Get('/:id')
+  async getOneObjective(@Param('id') id: string) {
+    return await this.objectiveService.getOneObjective(id);
   }
 
   @Post('/add')
