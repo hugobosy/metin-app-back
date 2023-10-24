@@ -33,7 +33,7 @@ export class ObjectiveService {
   }
 
   async setCompleteObjective(id: string): Promise<ObjectiveResponse> {
-    await this.objectiveRepository.update(id, {isComplete: true})
+    await this.objectiveRepository.delete(id)
 
     return {
       isSuccess: true,
