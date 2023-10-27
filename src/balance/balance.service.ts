@@ -43,9 +43,9 @@ export class BalanceService {
   }
 
   async getBalance(id: string) {
-    const { balanceWon, balanceYang } = await this.balanceRepository.findOneBy({
+    const user = await this.balanceRepository.findOneBy({
       userID: id,
     });
-    return { balanceYang: balanceYang, balanceWon: balanceWon };
+    return { balanceYang: user?.balanceYang, balanceWon: user?.balanceWon };
   }
 }
