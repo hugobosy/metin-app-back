@@ -12,8 +12,7 @@ export class BalanceController {
   }
 
   @Put('/')
-  async updateBalance(@Body() balance: BalanceDto) {
-    console.log(balance);
+  async updateBalance(@Body('balance') balance: BalanceDto) {
     return this.balanceService.updateBalance(balance);
   }
 }
