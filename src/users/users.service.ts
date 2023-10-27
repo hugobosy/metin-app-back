@@ -2,7 +2,7 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 import { Body, Injectable, Query } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { User, UserConfirmCode } from './users.entity';
+import { User, UserBalance, UserConfirmCode } from './users.entity';
 import {
   GenerateCodeResponse,
   GetUsersResponse,
@@ -18,6 +18,8 @@ export class UsersService {
     @InjectRepository(User) private UserRepository: Repository<User>,
     @InjectRepository(UserConfirmCode)
     private UserConfirmRepository: Repository<UserConfirmCode>,
+    @InjectRepository(UserBalance)
+    private UserBalanceRepository: Repository<UserBalance>,
     private mailService: MailerService,
   ) {}
 
@@ -41,9 +43,10 @@ export class UsersService {
       return { isSuccess: false, code: 502 };
     }
     await this.UserRepository.save(user);
+    await this.UserBalanceRepository.save({ userID: user.id });
     const genCode = await this.generateCode(user);
     await this.sendEmail(email, genCode.code, locale);
-    console.log(locale);
+
     return { isSuccess: true, code: 201 };
   }
 

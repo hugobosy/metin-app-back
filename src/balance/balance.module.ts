@@ -3,11 +3,12 @@ import { BalanceController } from './balance.controller';
 import { BalanceService } from './balance.service';
 import { UsersModule } from '../users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from '../users/users.entity';
+import { UserBalance } from '../users/users.entity';
 
 @Module({
-  imports: [UsersModule, TypeOrmModule.forFeature([User])],
+  imports: [UsersModule, TypeOrmModule.forFeature([UserBalance])],
   controllers: [BalanceController],
   providers: [BalanceService],
+  exports: [BalanceModule],
 })
 export class BalanceModule {}

@@ -3,9 +3,11 @@ import { RevenuesController } from './revenues.controller';
 import { RevenuesService } from './revenues.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Revenues } from './revenues.entity';
+import { User } from '../users/users.entity';
+import { BalanceModule } from '../balance/balance.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Revenues])],
+  imports: [TypeOrmModule.forFeature([Revenues, User]), BalanceModule],
   controllers: [RevenuesController],
   providers: [RevenuesService],
 })

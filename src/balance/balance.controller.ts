@@ -6,8 +6,8 @@ import { BalanceDto } from './dto/balance.dto';
 export class BalanceController {
   constructor(@Inject(BalanceService) private balanceService: BalanceService) {}
 
-  @Get('/')
-  async getBalance(@Body('id') id: string) {
+  @Get('/:id')
+  async getBalance(@Param('id') id: string) {
     return this.balanceService.getBalance(id);
   }
 

@@ -1,16 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from '../users/users.entity';
+import { User, UserBalance } from '../users/users.entity';
 import { Repository } from 'typeorm';
 import { BalanceDto } from './dto/balance.dto';
 
 @Injectable()
 export class BalanceService {
   constructor(
-    @InjectRepository(User) private userRepository: Repository<User>,
+    @InjectRepository(UserBalance)
+    private balanceRepository: Repository<UserBalance>,
   ) {}
   async updateBalance(balance: BalanceDto) {
-    await this.userRepository.update(balance.id, {
+    await this.balanceRepository.update(balance.id, {
       balanceWon: balance.balanceWon,
       balanceYang: balance.balanceYang,
     });
@@ -23,8 +24,9 @@ export class BalanceService {
   }
 
   async getBalance(id: string) {
-    const user = await this.userRepository.findOneBy({ id });
-    const { balanceYang, balanceWon } = user;
+    const { balanceWon, balanceYang } = await this.balanceRepository.findOneBy({
+      userID: id,
+    });
     return { balanceYang: balanceYang, balanceWon: balanceWon };
   }
 }
