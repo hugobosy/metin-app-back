@@ -5,6 +5,7 @@ import {
   Get,
   Inject,
   Param,
+  Patch,
   Post,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
@@ -56,3 +57,4 @@ export class UsersController {
     return await this.userService.removeUser(id);
   }
 }
+

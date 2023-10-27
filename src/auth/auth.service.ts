@@ -13,7 +13,7 @@ export class AuthService {
     console.log(email)
       try{
         const user = await this.usersService.findOne(email);
-        const payload = { id: user?.id, email: user?.email, username: user?.nick };
+        const payload = { id: user?.id, email: user?.email, username: user?.nick, isActive: user?.isActive, balanceWon: user?.balanceWon, balanceYang: user?.balanceYang };
 
         if (user?.password !== pass) {
           throw new UnauthorizedException({ code: 401 });

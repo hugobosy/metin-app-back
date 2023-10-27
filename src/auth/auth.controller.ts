@@ -11,7 +11,6 @@ import {
 import { AuthService } from './auth.service';
 import { GetUsersResponse } from '../types/users';
 import { AuthGuard } from './auth.guard';
-import { Public } from './decorators/public.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -19,14 +18,9 @@ export class AuthController {
 
   @HttpCode(HttpStatus.OK)
   @Post('login')
-  signIn(
-    @Body() signInDto: Pick<GetUsersResponse, 'email' | 'password'>,
-  ) {
-    console.log(signInDto)
-    return this.authService.signIn(
-      signInDto.email,
-      signInDto.password,
-    );
+  signIn(@Body() signInDto: Pick<GetUsersResponse, 'email' | 'password'>) {
+    console.log(signInDto);
+    return this.authService.signIn(signInDto.email, signInDto.password);
   }
 
   @UseGuards(AuthGuard)

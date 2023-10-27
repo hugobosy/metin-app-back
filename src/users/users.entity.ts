@@ -18,6 +18,10 @@ export class User {
   password: string;
   @Column({ default: false })
   isActive: boolean;
+  @Column({ default: 0 })
+  balanceWon: number;
+  @Column({default: 0})
+  balanceYang: number;
 }
 
 @Entity('users-confirm-code')

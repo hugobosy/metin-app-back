@@ -13,8 +13,7 @@ import { AuthModule } from './auth/auth.module';
 import { ExpensesModule } from './expenses/expenses.module';
 import { RevenuesModule } from './revenues/revenues.module';
 import { ObjectiveModule } from './objective/objective.module';
-import { APP_GUARD } from '@nestjs/core';
-import { AuthGuard } from './auth/auth.guard';
+import { BalanceModule } from './balance/balance.module';
 
 @Module({
   imports: [
@@ -51,6 +50,7 @@ import { AuthGuard } from './auth/auth.guard';
     ExpensesModule,
     RevenuesModule,
     ObjectiveModule,
+    BalanceModule,
   ],
   controllers: [AppController],
   providers: [AppService],
