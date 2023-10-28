@@ -14,6 +14,7 @@ import { ExpensesModule } from './expenses/expenses.module';
 import { RevenuesModule } from './revenues/revenues.module';
 import { ObjectiveModule } from './objective/objective.module';
 import { BalanceModule } from './balance/balance.module';
+import { ConverterModule } from './converter/converter.module';
 
 @Module({
   imports: [
@@ -51,6 +52,7 @@ import { BalanceModule } from './balance/balance.module';
     RevenuesModule,
     ObjectiveModule,
     BalanceModule,
+    ConverterModule,
   ],
   controllers: [AppController],
   providers: [AppService],
