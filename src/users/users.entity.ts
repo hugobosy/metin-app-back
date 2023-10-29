@@ -41,7 +41,7 @@ export class UserBalance {
   userID: string;
   @Column({ default: 0 })
   balanceWon: number;
-  @Column({ default: 0 })
+  @Column({ default: 0, type: 'bigint' })
   balanceYang: number;
   @OneToOne(() => User, (user) => user.id)
   @JoinColumn({ name: 'userID', referencedColumnName: 'id' })
