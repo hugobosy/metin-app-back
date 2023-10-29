@@ -22,6 +22,8 @@ export class Expenses {
   priceYang: number;
   @Column()
   priceWon: number;
+  @Column({ default: 'expenses' })
+  type: 'revenues' | 'expenses';
   @CreateDateColumn()
   createdAt: Date;
   @ManyToOne(() => User, (user) => user.id)

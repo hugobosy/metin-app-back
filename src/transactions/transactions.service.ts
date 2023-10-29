@@ -1,9 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Revenues } from '../revenues/revenues.entity';
 import { Repository } from 'typeorm';
 import { User } from '../users/users.entity';
-import { Expenses } from '../expenses/expenses.entity';
 
 @Injectable()
 export class TransactionsService {
@@ -20,12 +18,7 @@ export class TransactionsService {
       .getOne();
 
     return {
-      isSuccess: true,
-      code: 201,
-      data: {
-        revenues: transactions.revenues,
-        expenses: transactions.expenses,
-      },
+      transactions: transactions.revenues.concat(transactions.expenses),
     };
   }
 }

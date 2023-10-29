@@ -24,10 +24,10 @@ export class User {
   isActive: boolean;
   @OneToMany(() => Revenues, (revenues) => revenues.user)
   @JoinColumn({ name: 'id', referencedColumnName: 'idUser' })
-  revenues: Revenues;
+  revenues: Revenues[];
   @OneToMany(() => Expenses, (expenses) => expenses.user)
   @JoinColumn({ name: 'id', referencedColumnName: 'idUser' })
-  expenses: Expenses;
+  expenses: Expenses[];
 }
 
 @Entity('users-confirm-code')
