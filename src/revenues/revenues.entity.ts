@@ -2,8 +2,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { User } from '../users/users.entity';
 
 @Entity('revenues')
 export class Revenues {
@@ -21,4 +25,7 @@ export class Revenues {
   priceWon: number;
   @CreateDateColumn()
   createdAt: Date;
+  @ManyToOne(() => User, (user) => user.id)
+  @JoinColumn({ name: 'idUser', referencedColumnName: 'id' })
+  user: User;
 }

@@ -2,9 +2,13 @@ import {
   Column,
   Entity,
   JoinColumn,
+  ManyToOne,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Revenues } from '../revenues/revenues.entity';
+import { Expenses } from '../expenses/expenses.entity';
 
 @Entity('users')
 export class User {
@@ -18,6 +22,12 @@ export class User {
   password: string;
   @Column({ default: false })
   isActive: boolean;
+  @OneToMany(() => Revenues, (revenues) => revenues.user)
+  @JoinColumn({ name: 'id', referencedColumnName: 'idUser' })
+  revenues: Revenues;
+  @OneToMany(() => Expenses, (expenses) => expenses.user)
+  @JoinColumn({ name: 'id', referencedColumnName: 'idUser' })
+  expenses: Expenses;
 }
 
 @Entity('users-confirm-code')

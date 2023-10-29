@@ -11,5 +11,6 @@ import { BalanceService } from '../balance/balance.service';
   imports: [TypeOrmModule.forFeature([Expenses, UserBalance]), BalanceModule],
   controllers: [ExpensesController],
   providers: [ExpensesService, BalanceService],
+  exports: [ExpensesModule],
 })
 export class ExpensesModule {}
