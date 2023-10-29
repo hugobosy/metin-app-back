@@ -1,4 +1,9 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity('revenues')
 export class Revenues {
@@ -14,4 +19,6 @@ export class Revenues {
   priceYang: number;
   @Column()
   priceWon: number;
+  @CreateDateColumn()
+  createdAt: Date;
 }
