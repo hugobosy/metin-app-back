@@ -17,8 +17,8 @@ export class TransactionsService {
       .where('user.id = :userId', { userId })
       .getOne();
 
-    return {
-      transactions: transactions.revenues.concat(transactions.expenses),
-    };
+    return transactions.revenues
+      .concat(transactions.expenses)
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
   }
 }
