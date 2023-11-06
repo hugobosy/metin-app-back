@@ -25,10 +25,14 @@ export class UsersPets {
   petId: string;
   @Column({ length: 20 })
   name: string;
-  @Column({ type: 'int' })
+  @Column()
   time: string;
   @Column()
   level: number;
+  @Column()
+  type: number;
+  @Column()
+  stats: string;
   @ManyToOne(() => User, (user) => user.id)
   @JoinColumn({ name: 'userId', referencedColumnName: 'id' })
   user: User;

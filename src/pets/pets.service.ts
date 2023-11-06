@@ -1,19 +1,35 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Pets } from './pets.entity';
+import { Pets, UsersPets } from './pets.entity';
 import { Repository } from 'typeorm';
-import { PetsDto } from './dto/Pets.dto';
+import { PetsDto, UserPetsDto } from './dto/Pets.dto';
 import { PetsData } from '../utils/const/pets';
 
 @Injectable()
 export class PetsService {
   constructor(
     @InjectRepository(Pets) private petsRepository: Repository<Pets>,
+    @InjectRepository(UsersPets)
+    private usersPetsRepository: Repository<UsersPets>,
   ) {
     this.seedPets(PetsData);
   }
   async getPets() {
     return await this.petsRepository.find();
+  }
+
+  async getUserPets(id: string) {
+    return await this.usersPetsRepository.findBy({ userId: id });
+  }
+
+  async addUserPets(pet: UserPetsDto) {
+    await this.usersPetsRepository.save(pet);
+
+    return {
+      isSuccess: true,
+      code: 201,
+      message: `add pet: ${pet}`,
+    };
   }
 
   private async seedPets(pets: PetsDto[]) {
