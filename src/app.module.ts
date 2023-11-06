@@ -16,6 +16,7 @@ import { ObjectiveModule } from './objective/objective.module';
 import { BalanceModule } from './balance/balance.module';
 import { ConverterModule } from './converter/converter.module';
 import { TransactionsModule } from './transactions/transactions.module';
+import { PetsModule } from './pets/pets.module';
 
 @Module({
   imports: [
@@ -55,6 +56,7 @@ import { TransactionsModule } from './transactions/transactions.module';
     BalanceModule,
     ConverterModule,
     TransactionsModule,
+    PetsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
