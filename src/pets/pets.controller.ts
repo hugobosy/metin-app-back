@@ -12,7 +12,8 @@ export class PetsController {
   }
 
   @Get('/:id')
-  async getUserPets(@Param('userId') userId: string) {
+  async getUserPets(@Param('id') userId: string) {
+    console.log(userId);
     return await this.petsService.getUserPets(userId);
   }
 

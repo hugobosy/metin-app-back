@@ -18,8 +18,14 @@ export class PetsService {
     return await this.petsRepository.find();
   }
 
-  async getUserPets(id: string) {
-    return await this.usersPetsRepository.findBy({ userId: id });
+  async getUserPets(userId: string) {
+    console.log(userId);
+    // return await this.usersPetsRepository.findBy({ userId: id });
+    return await this.usersPetsRepository
+      .createQueryBuilder('usersPets')
+      .leftJoinAndSelect('usersPets.pets', 'pets') // Join z petem
+      .where('usersPets.userId = :userId', { userId })
+      .getMany();
   }
 
   async addUserPets(pet: UserPetsDto) {
