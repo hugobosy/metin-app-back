@@ -3,7 +3,6 @@ import { RevenuesService } from './revenues.service';
 import { GetExpensesResponse } from '../types/expenses';
 import { RevenuesResponse } from '../types/revenues';
 import { AddRevenueDto } from './dto/AddRevenue.dto';
-import { BalanceService } from '../balance/balance.service';
 
 @Controller('revenues')
 export class RevenuesController {

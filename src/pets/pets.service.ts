@@ -19,23 +19,55 @@ export class PetsService {
   }
 
   async getUserPets(userId: string) {
-    console.log(userId);
-    // return await this.usersPetsRepository.findBy({ userId: id });
     return await this.usersPetsRepository
       .createQueryBuilder('usersPets')
-      .leftJoinAndSelect('usersPets.pets', 'pets') // Join z petem
+      .leftJoinAndSelect('usersPets.pets', 'pets')
       .where('usersPets.userId = :userId', { userId })
       .getMany();
   }
 
-  async addUserPets(pet: UserPetsDto) {
-    await this.usersPetsRepository.save(pet);
+  async addUserPet(pet: UserPetsDto) {
+    try {
+      await this.usersPetsRepository.save(pet);
 
-    return {
-      isSuccess: true,
-      code: 201,
-      message: `add pet: ${pet}`,
-    };
+      return {
+        isSuccess: true,
+        code: 201,
+        message: `add pet: ${pet.name}`,
+      };
+    } catch (error) {
+      return {
+        isSuccess: false,
+        code: 500,
+        message: error.message,
+      };
+    }
+  }
+
+  async deleteUserPet(id: string) {
+    try {
+      const isPet = await this.usersPetsRepository.findOneBy({ id });
+      if (isPet) {
+        await this.usersPetsRepository.delete(id);
+        return {
+          isSuccess: true,
+          code: 200,
+          message: `deleted pet: ${id}`,
+        };
+      }
+
+      return {
+        isSuccess: false,
+        code: 400,
+        message: `not found pet: ${id}`,
+      };
+    } catch (error) {
+      return {
+        isSuccess: false,
+        code: 500,
+        message: error.message,
+      };
+    }
   }
 
   private async seedPets(pets: PetsDto[]) {
