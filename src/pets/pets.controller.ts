@@ -19,7 +19,7 @@ export class PetsController {
     return await this.petsService.getPets();
   }
 
-  @Get('/:id')
+  @Get('/get-user-pets/:id')
   async getUserPets(@Param('id') userId: string) {
     return await this.petsService.getUserPets(userId);
   }

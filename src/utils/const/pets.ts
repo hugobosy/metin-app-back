@@ -1,41 +1,41 @@
 export const PetsData = [
   {
-    name: 'pet.monkey',
+    name: 'Monkey',
   },
   {
-    name: 'pet.spider',
+    name: 'Spider',
   },
   {
-    name: 'pet.razador',
+    name: 'Razador',
   },
   {
-    name: 'pet.nemere',
+    name: 'Nemere',
   },
   {
-    name: 'pet.dragon',
+    name: 'Dragon',
   },
   {
-    name: 'pet.meley',
+    name: 'Meley',
   },
   {
-    name: 'pet.baashidos',
+    name: 'Baashidos',
   },
   {
-    name: 'pet.kat',
+    name: 'Kat',
   },
   {
-    name: 'pet.nessie',
+    name: 'Nessie',
   },
   {
-    name: 'pet.azrael',
+    name: 'Azrael',
   },
   {
-    name: 'pet.exedyar',
+    name: 'Exedyar',
   },
   {
-    name: 'pet.alastor',
+    name: 'Alastor',
   },
   {
-    name: 'pet.mini-boss',
+    name: 'MiniBoss',
   },
 ];
