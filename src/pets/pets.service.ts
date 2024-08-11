@@ -27,6 +27,7 @@ export class PetsService {
   }
 
   async addUserPet(pet: UserPetsDto) {
+    console.log(pet);
     try {
       await this.usersPetsRepository.save(pet);
 

@@ -8,6 +8,7 @@ export class UserPetsDto {
   name: string;
   level: number;
   type: number;
-  stats: string;
-  time: string;
+  hp: number;
+  def: number;
+  he: number;
 }

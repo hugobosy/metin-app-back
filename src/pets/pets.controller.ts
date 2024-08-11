@@ -25,7 +25,7 @@ export class PetsController {
   }
 
   @Post('/add')
-  async addUserPet(@Body('pet') pet: UserPetsDto) {
+  async addUserPet(@Body() pet: UserPetsDto) {
     return await this.petsService.addUserPet(pet);
   }
 
