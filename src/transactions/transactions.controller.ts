@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Inject, Param } from '@nestjs/common';
+import { Body, Controller, Get, Inject, Param, Post } from '@nestjs/common';
 import { TransactionsService } from './transactions.service';
 
 @Controller('transactions')
@@ -13,11 +13,12 @@ export class TransactionsController {
     return await this.transactionService.getTransactions(id);
   }
 
-  @Get('/get-results/:id')
+  @Get('/get-results/:id/:by')
   async getTransactionsByDate(
     @Param('id') id: string,
-    @Body('by') by: 'day' | 'month' | 'year',
+    @Param('by') by: 'day' | 'month' | 'year',
   ) {
+    console.log(id, by);
     return await this.transactionService.getTransactionsByDate(id, by);
   }
 }

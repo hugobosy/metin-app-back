@@ -29,15 +29,33 @@ export class TransactionsService {
   }
 
   async getTransactionsByDate(userId: string, by: 'day' | 'month' | 'year') {
-    const transactions = await this.getTransactions(userId);
+    const transactionsRevenues = await this.revenueRepository
+      .createQueryBuilder('revenues')
+      .where('revenues.idUser = :userId', { userId })
+      .getMany();
 
+    const transactionsExpenses = await this.expensesRepository
+      .createQueryBuilder('revenues')
+      .where('revenues.idUser = :userId', { userId })
+      .getMany();
+
+    return {
+      expenses: await this.getSummaryTransactions(transactionsExpenses, by),
+      revenues: await this.getSummaryTransactions(transactionsRevenues, by),
+    };
+  }
+
+  private async getSummaryTransactions(
+    transactions: any[],
+    by: 'day' | 'month' | 'year',
+  ) {
     const resultsYang = {};
     const resultsWon = {};
 
     transactions.forEach((transaction) => {
       const date = new Date(transaction.createdAt);
 
-      let key;
+      let key: string | number;
       switch (by) {
         case 'day':
           key = date.toISOString().split('T')[0];
