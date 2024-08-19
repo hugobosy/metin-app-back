@@ -13,12 +13,11 @@ export class TransactionsController {
     return await this.transactionService.getTransactions(id);
   }
 
-  @Get('/:id/:date')
+  @Get('/get-results/:id')
   async getTransactionsByDate(
     @Param('id') id: string,
-    @Param('date') date: string & number,
     @Body('by') by: 'day' | 'month' | 'year',
   ) {
-    return await this.transactionService.getTransactionsByDate(id, date, by);
+    return await this.transactionService.getTransactionsByDate(id, by);
   }
 }

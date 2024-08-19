@@ -28,52 +28,44 @@ export class TransactionsService {
       .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
   }
 
-  async getTransactionsByDate(
-    userId: string,
-    createdAt: string & number,
-    by: 'day' | 'month' | 'year',
-  ) {
-    switch (by) {
-      case 'day':
-        return await this.getTransactionByDay(userId, createdAt);
-      case 'month':
-        return await this.getTransactionByMonth(userId, createdAt);
-      case 'year':
-        return await this.getTransactionByYear(userId, createdAt);
-    }
-  }
-
-  private async getTransactionByDay(
-    userId: string,
-    createdAt: string | number,
-  ) {
-    const day = new Date(createdAt).toLocaleDateString();
+  async getTransactionsByDate(userId: string, by: 'day' | 'month' | 'year') {
     const transactions = await this.getTransactions(userId);
 
-    return transactions
-      .map((item) => item)
-      .filter((date) => new Date(date.createdAt).toLocaleDateString() === day);
-  }
-  private async getTransactionByMonth(userId: string, month: number) {
-    const transactions = await this.getTransactions(userId);
+    const resultsYang = {};
+    const resultsWon = {};
 
-    return transactions
-      .map((item) => item)
-      .filter(
-        (date) =>
-          `${new Date(date.createdAt).getUTCMonth()}` ===
-          `${new Date(month).getMonth()}`,
-      );
-  }
-  private async getTransactionByYear(userId: string, year: number) {
-    const transactions = await this.getTransactions(userId);
+    transactions.forEach((transaction) => {
+      const date = new Date(transaction.createdAt);
 
-    return transactions
-      .map((item) => item)
-      .filter(
-        (date) =>
-          `${new Date(date.createdAt).getFullYear()}` ===
-          `${new Date(year).getFullYear()}`,
-      );
+      let key;
+      switch (by) {
+        case 'day':
+          key = date.toISOString().split('T')[0];
+          break;
+        case 'month':
+          key =
+            date.getFullYear() +
+            '-' +
+            String(date.getMonth() + 1).padStart(2, '0');
+          break;
+        case 'year':
+          key = date.getFullYear();
+          break;
+        default:
+          throw new Error(`Unknown by: ${by}`);
+      }
+
+      if (!resultsYang[key]) {
+        resultsYang[key] = 0;
+      }
+      if (!resultsWon[key]) {
+        resultsWon[key] = 0;
+      }
+
+      resultsYang[key] += transaction.priceYang;
+      resultsWon[key] += transaction.priceWon;
+    });
+
+    return [resultsWon, resultsYang];
   }
 }
