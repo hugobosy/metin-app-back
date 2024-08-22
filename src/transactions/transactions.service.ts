@@ -35,8 +35,8 @@ export class TransactionsService {
       .getMany();
 
     const transactionsExpenses = await this.expensesRepository
-      .createQueryBuilder('revenues')
-      .where('revenues.idUser = :userId', { userId })
+      .createQueryBuilder('expenses')
+      .where('expenses.idUser = :userId', { userId })
       .getMany();
 
     return {
@@ -51,11 +51,10 @@ export class TransactionsService {
   ) {
     const resultsYang = {};
     const resultsWon = {};
-
+    let key: string | number;
     transactions.forEach((transaction) => {
       const date = new Date(transaction.createdAt);
 
-      let key: string | number;
       switch (by) {
         case 'day':
           key = date.toISOString().split('T')[0];
@@ -80,10 +79,9 @@ export class TransactionsService {
         resultsWon[key] = 0;
       }
 
-      resultsYang[key] += transaction.priceYang;
-      resultsWon[key] += transaction.priceWon;
+      resultsWon[key] += (transaction.priceWon * transaction.count) + (transaction.priceYang * transaction.count) / 100000000;
     });
 
-    return [resultsWon, resultsYang];
+    return resultsWon;
   }
 }
