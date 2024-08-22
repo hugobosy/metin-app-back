@@ -38,3 +38,6 @@ lerna-debug.log*
 package-lock.json
 .yarnrc.yml
 .yarn
+
+.pnp.cjs
+.pnp.loader.mjs
